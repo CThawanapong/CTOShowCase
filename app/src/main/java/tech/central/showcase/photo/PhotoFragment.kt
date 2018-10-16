@@ -92,8 +92,6 @@ class PhotoFragment : BaseFragment() {
             addItemDecoration(mItemDecoration)
         }
 
-        mPhotoController.showLoading()
-
         subscriptions += mPhotoController.bindDetailRelay()
                 .subscribeBy(
                         onNext = {

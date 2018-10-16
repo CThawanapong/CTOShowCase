@@ -36,6 +36,9 @@ class PhotoViewModel(
         disposables += loadPhotoUseCase.execute()
                 .subscribeOn(schedulersFacade.io)
                 .observeOn(schedulersFacade.ui)
+                .doOnSubscribe {
+                    photoListLiveData.value = null
+                }
                 .subscribeBy(
                         onError = {
                             photoListLiveData.value = emptyList()
