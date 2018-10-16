@@ -75,8 +75,7 @@ class PhotoFragment : BaseFragment() {
         mLayoutManager = mLayoutManagerProvider.get()
         mLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                val itemId = mPhotoController.adapter.getItemId(position)
-                val model = mPhotoController.adapter.getModelById(itemId)
+                val model = mPhotoController.adapter.getModelAtPosition(position)
                 return when (model) {
                     is EpoxyLoadingViewModel_ -> mLayoutManager.spanCount
                     else -> 1
