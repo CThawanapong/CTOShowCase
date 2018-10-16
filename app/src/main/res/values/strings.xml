@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Show Case</string>
+
+    <string name="dashboard">Dashboard</string>
+    <string name="photo">Photo</string>
+</resources>
