@@ -18,5 +18,14 @@
         android:id="@+id/photoFragment"
         android:name="tech.central.showcase.photo.PhotoFragment"
         android:label="@string/photo"
-        tools:layout="@layout/fragment_photo" />
+        tools:layout="@layout/fragment_photo">
+        <action
+            android:id="@+id/action_photoFragment_to_photoDetailFragment"
+            app:destination="@id/photoDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoDetailFragment"
+        android:name="tech.central.showcase.photo_detail.PhotoDetailFragment"
+        android:label="@string/photo_detail"
+        tools:layout="@layout/fragment_photo_detail" />
 </navigation>

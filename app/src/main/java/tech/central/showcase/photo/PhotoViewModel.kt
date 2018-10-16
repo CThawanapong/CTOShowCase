@@ -22,14 +22,14 @@ class PhotoViewModel(
 
     protected val disposables by lazy { CompositeDisposable() }
 
-    private val photoLiveData by lazy { MutableLiveData<List<Photo>>() }
+    private val photoListLiveData by lazy { MutableLiveData<List<Photo>>() }
 
-    fun bindPhotoLiveData(): LiveData<List<Photo>> {
-        if (photoLiveData.value == null) {
+    fun bindPhotoListLiveData(): LiveData<List<Photo>> {
+        if (photoListLiveData.value == null) {
             loadPhotos()
         }
 
-        return photoLiveData
+        return photoListLiveData
     }
 
     private fun loadPhotos() {
@@ -38,10 +38,10 @@ class PhotoViewModel(
                 .observeOn(schedulersFacade.ui)
                 .subscribeBy(
                         onError = {
-                            photoLiveData.value = emptyList()
+                            photoListLiveData.value = emptyList()
                         },
                         onSuccess = {
-                            photoLiveData.value = it
+                            photoListLiveData.value = it
                         }
                 )
     }

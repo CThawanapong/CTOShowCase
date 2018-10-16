@@ -42,5 +42,9 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         toolbar.setupWithNavController(navController)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return findNavController(R.id.navHostFragment).navigateUp()
+    }
+
     override fun supportFragmentInjector() = fragmentDispatchingAndroidInjector
 }
