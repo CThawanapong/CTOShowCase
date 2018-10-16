@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.fragment_photo.*
 import tech.central.showcase.MainViewModelFactory
 import tech.central.showcase.R
 import tech.central.showcase.base.BaseFragment
+import tech.central.showcase.base.epoxy.view.EpoxyLoadingViewModel_
 import tech.central.showcase.photo.controller.PhotoController
 import javax.inject.Inject
 import javax.inject.Provider
@@ -72,10 +73,22 @@ class PhotoFragment : BaseFragment() {
     private fun initInstance(rootView: View?, savedInstanceState: Bundle?) {
         //Init View instance
         mLayoutManager = mLayoutManagerProvider.get()
+        mLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                val itemId = mPhotoController.adapter.getItemId(position)
+                val model = mPhotoController.adapter.getModelById(itemId)
+                return when (model) {
+                    is EpoxyLoadingViewModel_ -> mLayoutManager.spanCount
+                    else -> 1
+                }
+            }
+        }
         recyclerView.apply {
             adapter = mPhotoController.adapter
             layoutManager = mLayoutManager
             addItemDecoration(mItemDecoration)
         }
+
+        mPhotoController.showLoading()
     }
 }
