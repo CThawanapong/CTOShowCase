@@ -94,6 +94,7 @@ class PhotoFragment : BaseFragment() {
 
         subscriptions += mPhotoController.bindDetailRelay()
                 .subscribeBy(
+                        onError = {},
                         onNext = {
                             this@PhotoFragment.view?.findNavController()
                                     ?.navigate(R.id.action_photoFragment_to_photoDetailFragment, PhotoDetailFragment.newBundle(it))
