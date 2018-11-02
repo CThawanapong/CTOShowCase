@@ -7,6 +7,7 @@ import dagger.Provides
 import tech.central.showcase.base.SchedulersFacade
 import tech.central.showcase.di.qualifier.ActivityContext
 import tech.central.showcase.photo.usecase.LoadPhotoUseCase
+import tech.central.showcase.post.usecase.LoadPostUseCase
 
 @Module
 class MainModule {
@@ -18,6 +19,7 @@ class MainModule {
     fun provideMainViewModelFactory(
             application: Application,
             loadPhotoUseCase: LoadPhotoUseCase,
+            loadPostUseCase: LoadPostUseCase,
             schedulersFacade: SchedulersFacade
-    ) = MainViewModelFactory(application, loadPhotoUseCase, schedulersFacade)
+    ) = MainViewModelFactory(application,schedulersFacade, loadPhotoUseCase, loadPostUseCase )
 }

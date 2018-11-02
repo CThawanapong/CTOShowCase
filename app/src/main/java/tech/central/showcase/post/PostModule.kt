@@ -11,5 +11,9 @@ import tech.central.showcase.di.qualifier.ActivityContext
 
 @Module
 class PostModule {
-    
+    @Provides
+    fun provideLayoutManager(@ActivityContext context: Context) = GridLayoutManager(context, 1, RecyclerView.VERTICAL, false)
+
+    @Provides
+    fun provideItemDecoration(@ActivityContext context: Context) = EpoxyItemSpacingDecorator(context.resources.getDimensionPixelSize(R.dimen.spacing_photo))
 }
