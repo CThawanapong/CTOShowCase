@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.epoxy.EpoxyItemSpacingDecorator
 import tech.central.showcase.MainViewModelFactory
@@ -16,6 +17,9 @@ import javax.inject.Inject
 import javax.inject.Provider
 import tech.central.showcase.post.controller.PostController
 import kotlinx.android.synthetic.main.fragment_post.*
+import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.rxkotlin.subscribeBy
+import tech.central.showcase.post_detail.PostDetailFragment
 
 class PostFragment : BaseFragment() {
     companion object {
@@ -65,7 +69,7 @@ class PostFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initInstance2(view, savedInstanceState)
+        initInstance(view, savedInstanceState)
 
         //Register ViewModel
         mPostViewModel.bindPostListLiveData()
@@ -75,7 +79,7 @@ class PostFragment : BaseFragment() {
 
     }
 
-    private fun initInstance2(rootView: View?, savedInstanceState: Bundle?) {
+    private fun initInstance(rootView: View?, savedInstanceState: Bundle?) {
         //Init View instance
         mLayoutManager = mLayoutManagerProvider.get()
         mLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
@@ -93,13 +97,13 @@ class PostFragment : BaseFragment() {
             addItemDecoration(mItemDecoration)
         }
 
-//        subscriptions += mPostController.bindDetailRelay()
-//                .subscribeBy(
-//                        onError = {},
-//                        onNext = {
-//                            this@PostFragment.view?.findNavController()
-//                                    ?.navigate(R.id.action_photoFragment_to_photoDetailFragment, PhotoDetailFragment.newBundle(null))
-//                        }
-//                )
+        subscriptions += mPostController.bindDetailRelay()
+                .subscribeBy(
+                        onError = {},
+                        onNext = {
+                            this@PostFragment.view?.findNavController()
+                                    ?.navigate(R.id.action_postFragment_to_postDetailFragment, PostDetailFragment.newBundle(it))
+                        }
+                )
     }
 }

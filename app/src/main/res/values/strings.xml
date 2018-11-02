@@ -8,6 +8,7 @@
 
     <string name="common.label.user">User</string>
     <string name="common.label.email">Email</string>
-    
+
     <string name="common.post">Post</string>
+    <string name="common.post.detail">Post Detail</string>
 </resources>

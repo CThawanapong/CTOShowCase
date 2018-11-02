@@ -10,6 +10,8 @@ import tech.central.showcase.photo_detail.PhotoDetailFragment
 import tech.central.showcase.photo_detail.PhotoDetailModule
 import tech.central.showcase.post.PostModule
 import tech.central.showcase.post.PostFragment
+import tech.central.showcase.post_detail.PostDetailModule
+import tech.central.showcase.post_detail.PostDetailFragment
 
 @Module
 abstract class MainFragmentProvider {
@@ -28,4 +30,8 @@ abstract class MainFragmentProvider {
     @PerFragment
     @ContributesAndroidInjector(modules = [PostModule::class])
     abstract fun bindPostFragment(): PostFragment
+
+    @PerFragment
+    @ContributesAndroidInjector(modules = [PostDetailModule::class])
+    abstract fun bindPostDetailFragment(): PostDetailFragment
 }

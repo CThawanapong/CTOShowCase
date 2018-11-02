@@ -37,5 +37,15 @@
         android:id="@+id/postFragment"
         android:name="tech.central.showcase.post.PostFragment"
         android:label="@string/common.post"
-        tools:layout="@layout/fragment_post"></fragment>
+        tools:layout="@layout/fragment_post" >
+        <action
+            android:id="@+id/action_postFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="tech.central.showcase.post_detail.PostDetailFragment"
+        android:label="@string/common.post.detail"
+        tools:layout="@layout/fragment_post_detail" />
 </navigation>
