@@ -1,9 +1,8 @@
 package tech.central.showcase.post
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
@@ -53,9 +52,32 @@ class PostFragment : BaseFragment() {
 
     private lateinit var mLayoutManager: GridLayoutManager
 
+    private var sortBy = "A-Z"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, menuInflater: MenuInflater?) {
+        menuInflater?.inflate(R.menu.menu_main, menu)
+        val sortOption = menu?.findItem(R.id.action_sortBy);
+        sortOption?.setVisible(true);
+
+        super.onCreateOptionsMenu(menu, menuInflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_sortBy -> {
+                sortBy = if (sortBy == "A-Z") "Z-A" else "A-Z"
+                Toast.makeText(this.getActivity(), "Sort by ${sortBy}", Toast.LENGTH_LONG).show()
+                mPostViewModel.sortPostList(sortBy)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun init(savedInstanceState: Bundle?) {
@@ -82,15 +104,6 @@ class PostFragment : BaseFragment() {
     private fun initInstance(rootView: View?, savedInstanceState: Bundle?) {
         //Init View instance
         mLayoutManager = mLayoutManagerProvider.get()
-        mLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                val model = mPostController.adapter.getModelAtPosition(position)
-                return when (model) {
-                    is EpoxyLoadingViewModel_ -> mLayoutManager.spanCount
-                    else -> 1
-                }
-            }
-        }
         recyclerView.apply {
             adapter = mPostController.adapter
             layoutManager = mLayoutManager

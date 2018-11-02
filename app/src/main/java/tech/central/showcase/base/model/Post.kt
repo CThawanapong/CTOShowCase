@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Post(
         @field:[Expose SerializedName("userId")]
-        val albumId: Int = 0,
+        val userId: Int = 0,
 
         @field:[Expose SerializedName("id")]
         val id: Int = 0,

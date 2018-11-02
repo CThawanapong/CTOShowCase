@@ -33,6 +33,17 @@ class PostViewModel(
         return postListLiveData
     }
 
+    fun sortPostList(condition: String) {
+        if (postListLiveData.value != null) {
+            val post = postListLiveData.value
+            if (condition == "A-Z") {
+                postListLiveData.value = post?.sortedBy { it -> it.title }
+            } else {
+                postListLiveData.value = post?.sortedByDescending { it -> it.title }
+            }
+        }
+    }
+
     private fun loadPosts() {
         disposables += loadPostUseCase.execute()
                 .subscribeOn(schedulersFacade.io)

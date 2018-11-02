@@ -24,7 +24,7 @@ class LoadPostUseCase @Inject constructor(
     }
 
     private fun bindUserToPost(posts: List<Post>, users: List<User>): List<Post> {
-        posts.forEach { post -> post.user = findUserInfo(post.id, users) }
+        posts.forEach { post -> post.user = findUserInfo(post.userId, users) }
         return posts;
     }
 
