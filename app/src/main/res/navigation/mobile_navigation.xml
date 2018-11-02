@@ -13,6 +13,10 @@
         <action
             android:id="@+id/action_dashboardFragment_to_photoFragment"
             app:destination="@id/photoFragment" />
+
+        <action
+            android:id="@+id/action_dashboardFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
     <fragment
         android:id="@+id/photoFragment"
@@ -28,4 +32,10 @@
         android:name="tech.central.showcase.photo_detail.PhotoDetailFragment"
         android:label="@string/photo_detail"
         tools:layout="@layout/fragment_photo_detail" />
+
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="tech.central.showcase.post.PostFragment"
+        android:label="@string/common.post"
+        tools:layout="@layout/fragment_post"></fragment>
 </navigation>

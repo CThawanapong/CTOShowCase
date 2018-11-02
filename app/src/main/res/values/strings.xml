@@ -4,4 +4,6 @@
     <string name="dashboard">Dashboard</string>
     <string name="photo">Photo</string>
     <string name="photo_detail">Photo Detail</string>
+
+    <string name="common.post">Post</string>
 </resources>
