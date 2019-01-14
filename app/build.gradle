@@ -85,23 +85,24 @@ kapt {
 ext {
     supportLibraryVersion = '1.0.0'
     archLifecycleVersion = '2.0.0'
-    pagingVersion = '2.0.0'
-    roomVersion = "2.1.0-alpha01"
+    pagingVersion = '2.1.0-rc01'
+    roomVersion = "2.1.0-alpha03"
     glideVersion = '4.8.0'
-    retrofitVersion = '2.4.0'
-    daggerVersion = "2.16"
-    workManagerVersion = "1.0.0-alpha10"
-    navigationVersion = "1.0.0-alpha06"
-    arrowVersion = "0.7.2"
-    epoxyVersion = "3.0.0-rc1"
+    retrofitVersion = '2.5.0'
+    daggerVersion = "2.20"
+    workManagerVersion = "1.0.0-beta01"
+    navigationVersion = "1.0.0-alpha09"
+    arrowVersion = "0.8.1"
+    epoxyVersion = "3.1.0"
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //Google Library
-    implementation 'androidx.multidex:multidex:2.0.0'
-    implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation "androidx.core:core-ktx:1.0.1"
+    implementation "androidx.appcompat:appcompat:1.0.2"
     implementation "androidx.cardview:cardview:$supportLibraryVersion"
     implementation "androidx.recyclerview:recyclerview:$supportLibraryVersion"
     implementation "androidx.gridlayout:gridlayout:$supportLibraryVersion"
@@ -111,15 +112,16 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation "com.google.android.material:material:$supportLibraryVersion"
 
+    //Play Services
+    implementation "com.google.android.gms:play-services-base:16.0.1"
+
     //Architecture Components
     implementation "androidx.appcompat:appcompat:$supportLibraryVersion"
     implementation "androidx.lifecycle:lifecycle-reactivestreams:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
-    implementation 'androidx.appcompat:appcompat:1.0.0'
     kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
     implementation "androidx.paging:paging-runtime:$pagingVersion"
     implementation "android.arch.work:work-runtime-ktx:$workManagerVersion"
-    implementation "android.arch.work:work-firebase:$workManagerVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
 
@@ -130,13 +132,13 @@ dependencies {
 
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.25.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
     implementation "io.arrow-kt:arrow-core:$arrowVersion"
 
     //Networking
-    implementation 'com.squareup.okio:okio:2.0.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    implementation 'com.squareup.okio:okio:2.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
@@ -145,11 +147,10 @@ dependencies {
     }
 
     //RX
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'com.github.akarnokd:rxjava2-extensions:0.20.3'
-    implementation 'com.github.FrangSierra:RxFirebase:1.5.1'
+    implementation 'com.github.akarnokd:rxjava2-extensions:0.20.4'
     implementation 'com.jakewharton.rxrelay2:rxrelay:2.0.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.2.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:2.2.0'
@@ -182,7 +183,7 @@ dependencies {
     //Test
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-inline:2.18.3'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
