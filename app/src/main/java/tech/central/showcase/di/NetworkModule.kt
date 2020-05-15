@@ -23,6 +23,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
+import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
@@ -78,10 +79,10 @@ class NetworkModule {
                         val sslContext = SSLContext.getInstance("SSL")
                         sslContext.init(null, trustAllCerts, SecureRandom())
                         sslSocketFactory(sslContext.socketFactory, trustAllCerts[0] as X509TrustManager)
-                        hostnameVerifier { _, _ -> true }
+                        hostnameVerifier(HostnameVerifier { _, _ -> true })
                     }
                 }
-                .followRedirects(false)
+            .followRedirects(true)
                 .cache(cache)
                 .readTimeout(120, TimeUnit.SECONDS)
                 .connectTimeout(120, TimeUnit.SECONDS)

@@ -42,7 +42,7 @@ class PhotoDetailFragment : BaseFragment() {
 
     private fun init(savedInstanceState: Bundle?) {
         arguments?.apply {
-            mPhotoDetailViewModelFactory.photo = getParcelable(ARG_PHOTO) as Photo
+            mPhotoDetailViewModelFactory.photo = getParcelable<Photo>(ARG_PHOTO) as Photo
         }
     }
 
@@ -57,7 +57,7 @@ class PhotoDetailFragment : BaseFragment() {
 
         //Register ViewModel
         mPhotoDetailViewModel.bindPhotoLiveData()
-                .observe(this, Observer {
+            .observe(viewLifecycleOwner, Observer {
                     it?.let {
                         imageView.loadUrlCropCenter(context, it.url)
                         textView.text = it.title

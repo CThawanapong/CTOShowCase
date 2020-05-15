@@ -4,16 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
+import dagger.android.HasAndroidInjector
 import kotlinx.android.synthetic.main.app_bar.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
+class MainActivity : AppCompatActivity(), HasAndroidInjector {
     companion object {
         @JvmStatic
         private val TAG = MainActivity::class.java.simpleName
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     //Injection
     @Inject
-    lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -46,5 +45,5 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         return findNavController(R.id.navHostFragment).navigateUp()
     }
 
-    override fun supportFragmentInjector() = fragmentDispatchingAndroidInjector
+    override fun androidInjector() = fragmentDispatchingAndroidInjector
 }

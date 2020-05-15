@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
-import dagger.android.support.HasSupportFragmentInjector
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-abstract class BaseFragment : Fragment(), HasSupportFragmentInjector {
+abstract class BaseFragment : Fragment(), HasAndroidInjector {
     companion object {
         private val TAG = BaseFragment::class.java.simpleName
     }
@@ -34,14 +34,19 @@ abstract class BaseFragment : Fragment(), HasSupportFragmentInjector {
 
     //Injection
     @Inject
-    lateinit var childFragmentInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var childFragmentInjector: DispatchingAndroidInjector<Any>
+
     @Inject
     lateinit var schedulersFacade: SchedulersFacade
 
     private val progressDialog: ProgressDialog by lazy { ProgressDialog(context) }
     protected var subscriptions = CompositeDisposable()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         subscriptions = CompositeDisposable()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -50,7 +55,7 @@ abstract class BaseFragment : Fragment(), HasSupportFragmentInjector {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
@@ -60,5 +65,5 @@ abstract class BaseFragment : Fragment(), HasSupportFragmentInjector {
         super.onDestroyView()
     }
 
-    override fun supportFragmentInjector() = childFragmentInjector
+    override fun androidInjector() = childFragmentInjector
 }
