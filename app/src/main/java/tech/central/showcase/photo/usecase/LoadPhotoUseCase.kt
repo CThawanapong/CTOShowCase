@@ -10,5 +10,13 @@ class LoadPhotoUseCase @Inject constructor(
 ) {
     fun execute(): Single<List<Photo>> {
         return mockServiceProvider.photos()
+            .map { photos ->
+                photos.mapIndexed { index, photo ->
+                    photo.copy(
+                        thumbnailUrl = "https://i.picsum.photos/id/$index/200/200.jpg",
+                        url = "https://i.picsum.photos/id/$index/600/600.jpg"
+                    )
+                }
+            }
     }
 }

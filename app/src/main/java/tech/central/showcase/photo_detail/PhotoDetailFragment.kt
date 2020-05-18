@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_photo_detail.*
 import tech.central.showcase.R
 import tech.central.showcase.base.BaseFragment
@@ -33,7 +33,7 @@ class PhotoDetailFragment : BaseFragment() {
     lateinit var mPhotoDetailViewModelFactory: PhotoDetailViewModelFactory
 
     //Data Members
-    private val mPhotoDetailViewModel by lazy { ViewModelProviders.of(this, mPhotoDetailViewModelFactory).get(PhotoDetailViewModel::class.java) }
+    private val mPhotoDetailViewModel by viewModels<PhotoDetailViewModel> { mPhotoDetailViewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,11 @@ class PhotoDetailFragment : BaseFragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_photo_detail, container, false)
         return rootView
     }
@@ -58,11 +62,11 @@ class PhotoDetailFragment : BaseFragment() {
         //Register ViewModel
         mPhotoDetailViewModel.bindPhotoLiveData()
             .observe(viewLifecycleOwner, Observer {
-                    it?.let {
-                        imageView.loadUrlCropCenter(context, it.url)
-                        textView.text = it.title
-                    }
-                })
+                it?.let {
+                    imageView.loadUrlCropCenter(context, it.url)
+                    textView.text = it.title
+                }
+            })
     }
 
     private fun initInstance(rootView: View?, savedInstanceState: Bundle?) {

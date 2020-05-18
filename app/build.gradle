@@ -99,6 +99,7 @@ ext {
     workManagerVersion = '1.0.1'
     arrowVersion = '0.10.5'
     epoxyVersion = '3.9.0'
+    fragmentVersion = '1.2.4'
 }
 
 dependencies {
@@ -125,11 +126,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$archLifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$archLifecycleVersion"
     implementation "androidx.paging:paging-runtime:$pagingVersion"
     implementation "android.arch.work:work-runtime-ktx:$workManagerVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
 
     //Room
     implementation "androidx.room:room-runtime:$roomVersion"
