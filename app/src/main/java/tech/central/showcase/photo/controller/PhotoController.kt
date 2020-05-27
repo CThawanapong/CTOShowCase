@@ -6,9 +6,10 @@ import io.reactivex.Observable
 import tech.central.showcase.base.epoxy.view.epoxyLoadingView
 import tech.central.showcase.base.model.Photo
 import tech.central.showcase.photo.controller.model.photo
+import tech.central.showcase.photo.model.PhotoViewState
 import javax.inject.Inject
 
-class PhotoController @Inject constructor() : TypedEpoxyController<List<Photo>>() {
+class PhotoController @Inject constructor() : TypedEpoxyController<PhotoViewState>() {
     companion object {
         @JvmStatic
         private val TAG = PhotoController::class.java.simpleName
@@ -17,29 +18,19 @@ class PhotoController @Inject constructor() : TypedEpoxyController<List<Photo>>(
     //Data Members
     private val detailRelay by lazy { PublishRelay.create<Photo>() }
 
-    override fun buildModels(data: List<Photo>?) {
-        when {
-            data == null -> {
-                epoxyLoadingView {
-                    id("loading")
+    override fun buildModels(data: PhotoViewState?) {
+        data?.run {
+            photos.forEach { photo ->
+                photo {
+                    id(photo.id)
+                    photo(photo)
+                    detailRelay(detailRelay)
                 }
             }
-            data.isNotEmpty() -> {
-                data.forEach {
-                    photo {
-                        id(it.id)
-                        photo(it)
-                        detailRelay(detailRelay)
-                    }
-                }
-            }
-            else -> {
-            }
+        } ?: epoxyLoadingView {
+            id("loading")
+            spanSizeOverride { totalSpanCount, _, _ -> totalSpanCount }
         }
-    }
-
-    fun showLoading() {
-        setData(null)
     }
 
     fun bindDetailRelay(): Observable<Photo> = detailRelay

@@ -8,6 +8,7 @@ import tech.central.showcase.photo.PhotoFragment
 import tech.central.showcase.photo.PhotoModule
 import tech.central.showcase.photo_detail.PhotoDetailFragment
 import tech.central.showcase.photo_detail.PhotoDetailModule
+import tech.central.showcase.photo_detail.PhotoDetailViewModelModule
 
 @Module
 abstract class MainFragmentProvider {
@@ -20,6 +21,6 @@ abstract class MainFragmentProvider {
     abstract fun bindPhotoFragment(): PhotoFragment
 
     @PerFragment
-    @ContributesAndroidInjector(modules = [PhotoDetailModule::class])
+    @ContributesAndroidInjector(modules = [PhotoDetailModule::class, PhotoDetailViewModelModule::class])
     abstract fun bindPhotoDetailFragment(): PhotoDetailFragment
 }

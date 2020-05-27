@@ -29,10 +29,11 @@ class ShowCaseApplication : Application(), HasAndroidInjector {
         RxJavaAssemblyTracking.enable()
 
         DaggerAppComponent
-            .builder()
-            .application(this)
-            .mockEndpoint(BuildConfig.MOCK_ENDPOINT)
-            .build()
+            .factory()
+            .create(
+                this,
+                BuildConfig.MOCK_ENDPOINT
+            )
             .inject(this)
 
         try {

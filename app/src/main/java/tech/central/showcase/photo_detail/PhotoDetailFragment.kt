@@ -5,35 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import kotlinx.android.synthetic.main.fragment_photo_detail.*
 import tech.central.showcase.R
 import tech.central.showcase.base.BaseFragment
 import tech.central.showcase.base.extension.loadUrlCropCenter
-import tech.central.showcase.base.model.Photo
+import tech.central.showcase.di.factory.assisted.SavedStateViewModelFactory
 import javax.inject.Inject
 
 class PhotoDetailFragment : BaseFragment() {
     companion object {
         @JvmStatic
         private val TAG = PhotoDetailFragment::class.java.simpleName
-
-        private const val ARG_PHOTO = "ARG_PHOTO"
-
-        @JvmStatic
-        fun newBundle(photo: Photo): Bundle {
-            val bundle = Bundle()
-            bundle.putParcelable(ARG_PHOTO, photo)
-            return bundle
-        }
     }
 
     //Injection
     @Inject
-    lateinit var mPhotoDetailViewModelFactory: PhotoDetailViewModelFactory
+    lateinit var mSavedStateViewModelFactory: SavedStateViewModelFactory
 
     //Data Members
-    private val mPhotoDetailViewModel by viewModels<PhotoDetailViewModel> { mPhotoDetailViewModelFactory }
+    private val mPhotoDetailViewModel by viewModels<PhotoDetailViewModel> { mSavedStateViewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +32,7 @@ class PhotoDetailFragment : BaseFragment() {
     }
 
     private fun init(savedInstanceState: Bundle?) {
-        arguments?.apply {
-            mPhotoDetailViewModelFactory.photo = getParcelable<Photo>(ARG_PHOTO) as Photo
-        }
+
     }
 
     override fun onCreateView(
@@ -60,17 +49,18 @@ class PhotoDetailFragment : BaseFragment() {
         initInstance(view, savedInstanceState)
 
         //Register ViewModel
-        mPhotoDetailViewModel.bindPhotoLiveData()
-            .observe(viewLifecycleOwner, Observer {
-                it?.let {
-                    imageView.loadUrlCropCenter(context, it.url)
-                    textView.text = it.title
+        mPhotoDetailViewModel.photoDetailViewState
+            .observe(viewLifecycleOwner) {
+                with(it.photo) {
+                    imageView.loadUrlCropCenter(context, url)
+                    textView.text = title
                 }
-            })
+            }
+
+        mPhotoDetailViewModel.loadInit()
     }
 
     private fun initInstance(rootView: View?, savedInstanceState: Bundle?) {
         //Init View instance
-
     }
 }

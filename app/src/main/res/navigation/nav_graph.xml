@@ -35,5 +35,9 @@
         android:id="@+id/photoDetailFragment"
         android:name="tech.central.showcase.photo_detail.PhotoDetailFragment"
         android:label="@string/photo_detail"
-        tools:layout="@layout/fragment_photo_detail" />
+        tools:layout="@layout/fragment_photo_detail">
+        <argument
+            android:name="photo"
+            app:argType="tech.central.showcase.base.model.Photo" />
+    </fragment>
 </navigation>

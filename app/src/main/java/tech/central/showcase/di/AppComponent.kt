@@ -9,17 +9,23 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class, BuilderModule::class, NetworkModule::class])
+@Component(
+    modules = [
+        AndroidSupportInjectionModule::class,
+        AppModule::class,
+        BuilderModule::class,
+        ViewModelFactoryModule::class,
+        NetworkModule::class,
+        AssistedModule::class
+    ]
+)
 interface AppComponent {
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: Application): Builder
-
-        @BindsInstance
-        fun mockEndpoint(@Named("MOCK_ENDPOINT") endpoint: String): Builder
-
-        fun build(): AppComponent
+    @Component.Factory
+    interface Factory {
+        fun create(
+            @BindsInstance application: Application,
+            @BindsInstance @Named("MOCK_ENDPOINT") endpoint: String
+        ): AppComponent
     }
 
     fun inject(showCaseApplication: ShowCaseApplication)
