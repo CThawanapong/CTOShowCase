@@ -15,9 +15,9 @@ import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-abstract class BaseFragment : Fragment(), HasAndroidInjector {
+abstract class BaseTestFragment : Fragment(), HasAndroidInjector {
     companion object {
-        private val TAG = BaseFragment::class.java.simpleName
+        private val TAG = BaseTestFragment::class.java.simpleName
     }
 
     val context: Context
@@ -37,7 +37,7 @@ abstract class BaseFragment : Fragment(), HasAndroidInjector {
     lateinit var childFragmentInjector: DispatchingAndroidInjector<Any>
 
     @Inject
-    lateinit var schedulersFacade: SchedulersFacade
+    lateinit var schedulersFacade: TestSchedulersFacade
 
     private val progressDialog: ProgressDialog by lazy { ProgressDialog(context) }
     protected var subscriptions = CompositeDisposable()

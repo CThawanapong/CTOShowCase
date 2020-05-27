@@ -15,6 +15,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import tech.central.showcase.BuildConfig
 import tech.central.showcase.base.SchedulersFacade
+import tech.central.showcase.base.TestSchedulersFacade
 import tech.central.showcase.base.service.MockService
 import tech.central.showcase.di.qualifier.ApplicationContext
 import java.io.File
@@ -30,10 +31,10 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 @Module
-class NetworkModule {
+class TestNetworkModule {
     companion object {
         @JvmStatic
-        private val TAG = NetworkModule::class.java.simpleName
+        private val TAG = TestNetworkModule::class.java.simpleName
     }
 
     @Singleton
@@ -129,5 +130,5 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideSchedulerFacade() = SchedulersFacade()
+    fun provideSchedulerFacade(): SchedulersFacade = TestSchedulersFacade()
 }

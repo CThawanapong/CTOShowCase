@@ -16,6 +16,11 @@ android {
     def mApplicationId = "tech.central.showcase"
     def mVersionName = "1.0.0"
 
+    useLibrary 'org.apache.http.legacy'
+    useLibrary 'android.test.runner'
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
+
     compileSdkVersion 29
 
     compileOptions {
@@ -34,7 +39,10 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName mVersionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary true
 
         buildConfigField "String", "MOCK_ENDPOINT", '"https://jsonplaceholder.typicode.com/"'
     }
@@ -82,10 +90,20 @@ android {
             variant.ignore = true
         }
     }
+
+    testOptions {
+        execution 'ANDROID_TEST_ORCHESTRATOR'
+        animationsDisabled = true
+        unitTests {
+            returnDefaultValues = true
+            includeAndroidResources = true
+        }
+    }
 }
 
 kapt {
     correctErrorTypes = true
+    useBuildCache = true
 }
 
 ext {
@@ -100,6 +118,9 @@ ext {
     workManagerVersion = '1.0.1'
     arrowVersion = '0.10.5'
     epoxyVersion = '3.11.0'
+    okHttpVersion = '4.7.2'
+    mockitoVersion = '3.3.3'
+    robolectricVersion = '4.3.1'
     fragmentVersion = '1.2.4'
 }
 
@@ -133,6 +154,7 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
+    debugImplementation "androidx.fragment:fragment-testing:$fragmentVersion"
 
     //Room
     implementation "androidx.room:room-runtime:$roomVersion"
@@ -146,8 +168,8 @@ dependencies {
 
     //Networking
     implementation 'com.squareup.okio:okio:2.6.0'
-    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.7.2'
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
@@ -193,11 +215,36 @@ dependencies {
 
     //Test
     testImplementation 'junit:junit:4.13'
-    testImplementation 'org.mockito:mockito-inline:3.3.3'
+    testImplementation 'androidx.test:core-ktx:1.2.0'
+    testImplementation "androidx.test:runner:1.2.0"
+    testImplementation "androidx.test.ext:junit:1.1.1"
+    testImplementation "androidx.test.ext:truth:1.2.0"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+    testImplementation "com.google.dagger:dagger:$daggerVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "org.robolectric:shadowapi:$robolectricVersion"
+    testImplementation "org.robolectric:shadows-playservices:$robolectricVersion"
+    testImplementation "org.robolectric:shadows-httpclient:$robolectricVersion"
+    testImplementation "org.robolectric:shadows-multidex:$robolectricVersion"
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
+    kaptTest "com.google.dagger:dagger-android-processor:$daggerVersion"
+
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    androidTestImplementation 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.2.0', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    androidTestImplementation "com.google.dagger:dagger:$daggerVersion"
+    androidTestUtil 'androidx.test:orchestrator:1.2.0'
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
+    kaptAndroidTest "com.google.dagger:dagger-android-processor:$daggerVersion"
 }
 
 androidExtensions {

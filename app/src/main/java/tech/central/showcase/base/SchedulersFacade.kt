@@ -4,17 +4,14 @@ import android.os.Looper
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class SchedulersFacade @Inject constructor() {
-    val io: Scheduler
+open class SchedulersFacade {
+    open val io: Scheduler
         get() = Schedulers.io()
 
-    val computation: Scheduler
+    open val computation: Scheduler
         get() = Schedulers.computation()
 
-    val ui: Scheduler
+    open val ui: Scheduler
         get() = AndroidSchedulers.from(Looper.getMainLooper(), true)
 }
