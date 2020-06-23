@@ -13,8 +13,8 @@ class LoadPhotoUseCase @Inject constructor(
             .map { photos ->
                 photos.mapIndexed { index, photo ->
                     photo.copy(
-                        thumbnailUrl = "https://i.picsum.photos/id/$index/200/200.jpg",
-                        url = "https://i.picsum.photos/id/$index/600/600.jpg"
+                        thumbnailUrl = "https://picsum.photos/id/$index/200/200.jpg",
+                        url = "https://picsum.photos/id/$index/600/600.jpg"
                     )
                 }
             }
