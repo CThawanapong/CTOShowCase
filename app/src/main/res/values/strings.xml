@@ -4,4 +4,11 @@
     <string name="dashboard">Dashboard</string>
     <string name="photo">Photo</string>
     <string name="photo_detail">Photo Detail</string>
+    <string name="post">Post</string>
+    <string name="post_detail">Post Detail</string>
+    <string name="body">Body</string>
+    <string name="format_post_title">CMC#%d %s</string>
+    <string name="post_loaded">Post Loaded</string>
+    <string name="sort_by_title_ascending">Sort by Title Ascending</string>
+    <string name="sort_by_title_descending">Sort by Title Descending</string>
 </resources>

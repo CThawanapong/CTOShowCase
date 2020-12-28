@@ -17,6 +17,7 @@ import tech.central.showcase.R
 import tech.central.showcase.base.BaseFragment
 import tech.central.showcase.photo.controller.PhotoController
 import javax.inject.Inject
+import javax.inject.Named
 import javax.inject.Provider
 
 class PhotoFragment : BaseFragment() {
@@ -41,9 +42,11 @@ class PhotoFragment : BaseFragment() {
     lateinit var mPhotoController: PhotoController
 
     @Inject
+    @Named("GRID_LAYOUT_MANAGER")
     lateinit var mLayoutManagerProvider: Provider<GridLayoutManager>
 
     @Inject
+    @Named("GRID_DECORATOR")
     lateinit var mItemDecoration: EpoxyItemSpacingDecorator
 
     //Data Members
