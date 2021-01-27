@@ -8,6 +8,7 @@ import dagger.multibindings.IntoMap
 import tech.central.showcase.di.factory.ViewModelFactory
 import tech.central.showcase.di.qualifier.ViewModelKey
 import tech.central.showcase.photo.PhotoViewModel
+import tech.central.showcase.posts.PostsViewModel
 
 @Module
 abstract class ViewModelFactoryModule {
@@ -18,4 +19,9 @@ abstract class ViewModelFactoryModule {
     @IntoMap
     @ViewModelKey(PhotoViewModel::class)
     internal abstract fun photoViewModel(viewModel: PhotoViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PostsViewModel::class)
+    internal abstract fun postViewModel(viewModel: PostsViewModel): ViewModel
 }

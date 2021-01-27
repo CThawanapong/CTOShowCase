@@ -1,5 +1,6 @@
 package tech.central.showcase.photo.controller.model
 
+import android.util.Log
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
