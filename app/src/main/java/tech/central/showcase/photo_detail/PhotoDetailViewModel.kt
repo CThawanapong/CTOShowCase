@@ -43,7 +43,7 @@ class PhotoDetailViewModel @AssistedInject constructor(
     }
 
     // Live Data
-    val photoLiveData by lazy { MutableLiveData<Photo>() }
+    private val photoLiveData by lazy { MutableLiveData<Photo>() }
 
     // Data Members
     private val disposables by lazy { CompositeDisposable() }
@@ -52,7 +52,7 @@ class PhotoDetailViewModel @AssistedInject constructor(
         loadPhoto()
     }
 
-    fun loadPhoto() {
+    private fun loadPhoto() {
         photoLiveData.value = photoDetailFragmentArgs.photo
     }
 

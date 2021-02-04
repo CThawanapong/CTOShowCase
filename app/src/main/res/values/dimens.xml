@@ -4,4 +4,6 @@
     <dimen name="default_card_elevation">3dp</dimen>
 
     <dimen name="spacing_photo">6dp</dimen>
+    <dimen name="size14dp">14dp</dimen>
+    <dimen name="size7dp">7dp</dimen>
 </resources>

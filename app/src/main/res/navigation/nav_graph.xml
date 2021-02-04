@@ -17,6 +17,13 @@
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_postsFragment"
+            app:destination="@id/postsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
     <fragment
         android:id="@+id/photoFragment"
@@ -40,4 +47,35 @@
             android:name="photo"
             app:argType="tech.central.showcase.base.model.Photo" />
     </fragment>
+    <fragment
+        android:id="@+id/postsFragment"
+        android:name="tech.central.showcase.posts.PostsFragment"
+        android:label="@string/posts"
+        tools:layout="@layout/fragment_posts" >
+        <action
+            android:id="@+id/action_postsFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            />
+        <argument
+            android:name="enterFromDashboard"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="tech.central.showcase.post_detail.PostDetailFragment"
+        android:label="@string/post_detail"
+        tools:layout="@layout/fragment_post_detail">
+        <argument
+            android:name="post"
+            app:argType="tech.central.showcase.base.model.post.Post" />
+        <argument
+            android:name="user"
+            app:argType="tech.central.showcase.base.model.user.User" />
+    </fragment>
+
 </navigation>
