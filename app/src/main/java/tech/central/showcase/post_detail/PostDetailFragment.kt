@@ -1,4 +1,4 @@
-package tech.central.showcase.photo_detail
+package tech.central.showcase.post_detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,17 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
-import kotlinx.android.synthetic.main.fragment_photo_detail.*
+import kotlinx.android.synthetic.main.fragment_post_detail.*
 import tech.central.showcase.R
 import tech.central.showcase.base.BaseFragment
-import tech.central.showcase.base.extension.loadUrlCropCenter
 import tech.central.showcase.di.factory.assisted.SavedStateViewModelFactory
 import javax.inject.Inject
 
-class PhotoDetailFragment : BaseFragment() {
+class PostDetailFragment : BaseFragment() {
     companion object {
         @JvmStatic
-        private val TAG = PhotoDetailFragment::class.java.simpleName
+        private val TAG = PostDetailFragment::class.java.simpleName
     }
 
     //Injection
@@ -24,7 +23,7 @@ class PhotoDetailFragment : BaseFragment() {
     lateinit var mSavedStateViewModelFactory: SavedStateViewModelFactory
 
     //Data Members
-    private val mPhotoDetailViewModel by viewModels<PhotoDetailViewModel> { mSavedStateViewModelFactory }
+    private val mPostDetailViewModel by viewModels<PostDetailViewModel> { mSavedStateViewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +39,7 @@ class PhotoDetailFragment : BaseFragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_photo_detail, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_post_detail, container, false)
         return rootView
     }
 
@@ -49,15 +48,19 @@ class PhotoDetailFragment : BaseFragment() {
         initInstance(view, savedInstanceState)
 
         //Register ViewModel
-        mPhotoDetailViewModel.photoDetailViewState
+        mPostDetailViewModel.postDetailViewState
                 .observe(viewLifecycleOwner) {
-                    with(it.photo) {
-                        imageView.loadUrlCropCenter(context, url)
-                        textView.text = title
+                    with(it.post) {
+                        textViewPostTitle.text = title
+                        textViewUserName.text = user?.name
+                        textViewUserEmail.text = user?.email
+
+                        //The detail of each post should contain both a title and a body.
+                        textViewBody.text = "$title\n$body"
                     }
                 }
 
-        mPhotoDetailViewModel.loadInit()
+        mPostDetailViewModel.loadInit()
     }
 
     private fun initInstance(rootView: View?, savedInstanceState: Bundle?) {
