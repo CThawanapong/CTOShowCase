@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import com.jakewharton.rxbinding2.view.clicks
+import androidx.navigation.fragment.findNavController
 import io.reactivex.rxkotlin.plusAssign
-import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import tech.central.showcase.R
 import tech.central.showcase.base.BaseFragment
@@ -58,5 +57,13 @@ class DashboardFragment : BaseFragment() {
                     this@DashboardFragment.view?.findNavController()
                             ?.navigate(R.id.action_dashboardFragment_to_photoFragment)
                 }
+
+        subscriptions += buttonPost.clicks()
+                .subscribeBy(
+                        onError = { e -> e.printStackTrace() },
+                        onNext = {
+                            findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToPostFragment(true))
+                        }
+                )
     }
 }

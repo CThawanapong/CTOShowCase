@@ -4,4 +4,14 @@
     <string name="dashboard">Dashboard</string>
     <string name="photo">Photo</string>
     <string name="photo_detail">Photo Detail</string>
+    <string name="post">Post</string>
+    <string name="post_detail">Post Detail</string>
+    <string name="body">Body</string>
+    <string name="sort_asc">A-Z</string>
+    <string name="sort_desc">Z-A</string>
+    <string name="post_loaded">Post Loaded</string>
+
+    <string name="shared_element_title">title%1$d</string>
+    <string name="shared_element_name">name%1$d</string>
+    <string name="shared_element_email">email%1$d</string>
 </resources>
