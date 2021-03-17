@@ -79,9 +79,8 @@ class PostViewModel @Inject constructor(
         }
     }
 
-    fun sortList() {
+    fun clearList() {
         postListLiveData.value = emptyList()
-        sortedLiveData.value = true
     }
 
     override fun onCleared() {

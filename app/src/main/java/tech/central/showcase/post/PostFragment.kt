@@ -58,7 +58,7 @@ class PostFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init(savedInstanceState)
-        mPostViewModel.sortList()
+        mPostViewModel.clearList()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -128,9 +128,6 @@ class PostFragment : BaseFragment() {
             R.id.menu_sort -> {
                 mPostViewModel.sortedListMenu()
                 mLayoutManager.scrollToPosition(0)
-                if (requireArguments().equals(true)) {
-                    Log.d(TAG, "onViewCreated: CLEAR")
-                }
             }
         }
         return super.onOptionsItemSelected(item)
