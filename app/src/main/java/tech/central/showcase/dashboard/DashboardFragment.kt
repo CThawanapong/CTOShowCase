@@ -58,5 +58,10 @@ class DashboardFragment : BaseFragment() {
                     this@DashboardFragment.view?.findNavController()
                             ?.navigate(R.id.action_dashboardFragment_to_photoFragment)
                 }
+
+        subscriptions += buttonPost.clicks().subscribeBy {
+            this@DashboardFragment.view?.findNavController()
+                    ?.navigate(R.id.action_dashboardFragment_to_postFragment)
+        }
     }
 }

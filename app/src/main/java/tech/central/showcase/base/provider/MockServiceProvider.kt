@@ -1,7 +1,10 @@
 package tech.central.showcase.base.provider
 
+import io.reactivex.Observable
 import io.reactivex.Single
 import tech.central.showcase.base.model.Photo
+import tech.central.showcase.base.model.Post
+import tech.central.showcase.base.model.User
 import tech.central.showcase.base.service.MockService
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -17,5 +20,13 @@ class MockServiceProvider @Inject constructor(
 
     fun photos(): Single<List<Photo>> {
         return mockService.photos()
+    }
+
+    fun posts() : Single<List<Post>> {
+        return mockService.posts()
+    }
+
+    fun users() : Single<List<User>> {
+        return mockService.users()
     }
 }

@@ -2,10 +2,15 @@ package tech.central.showcase.base
 
 import android.app.ProgressDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -13,6 +18,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.disposables.CompositeDisposable
+import tech.central.showcase.R
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment(), HasAndroidInjector {
@@ -61,8 +67,25 @@ abstract class BaseFragment : Fragment(), HasAndroidInjector {
     }
 
     override fun onDestroyView() {
+//        hideProgressDialog()
         subscriptions.clear()
         super.onDestroyView()
+    }
+
+    protected fun showProgressDialog() {
+        try {
+            if (!progressDialog.isShowing) progressDialog.show()
+        } catch (e: WindowManager.BadTokenException) {
+            Log.e(TAG, "showProgressDialog: fail", e)
+        }
+
+        progressDialog.setCancelable(false)
+        progressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        progressDialog.setContentView(R.layout.list_item_loading)
+    }
+
+    private fun hideProgressDialog() {
+        if (progressDialog.isShowing) progressDialog.dismiss()
     }
 
     override fun androidInjector() = childFragmentInjector
