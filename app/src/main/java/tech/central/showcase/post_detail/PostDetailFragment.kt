@@ -1,12 +1,9 @@
 package tech.central.showcase.post_detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.transition.TransitionInflater
@@ -39,15 +36,6 @@ class PostDetailFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requireActivity()
-                .onBackPressedDispatcher
-                .addCallback(this,
-                        object : OnBackPressedCallback(true) {
-                            override fun handleOnBackPressed() {
-                                Log.d(TAG, "handleOnBackPressed: TEST")
-                            }
-                        })
-
         init(savedInstanceState)
         sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
@@ -63,6 +51,7 @@ class PostDetailFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initInstance(view, savedInstanceState)
+
         //Register ViewModel
         mPostDetailViewModel.postDetailViewState
                 .observe(viewLifecycleOwner) {

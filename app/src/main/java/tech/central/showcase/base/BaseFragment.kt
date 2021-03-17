@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -84,7 +83,7 @@ abstract class BaseFragment : Fragment(), HasAndroidInjector {
         progressDialog.setContentView(R.layout.list_item_loading)
     }
 
-    private fun hideProgressDialog() {
+    fun hideProgressDialog() {
         if (progressDialog.isShowing) progressDialog.dismiss()
     }
 

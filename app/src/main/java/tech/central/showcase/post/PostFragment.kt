@@ -3,9 +3,6 @@ package tech.central.showcase.post
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.OnBackPressedDispatcher
-import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -14,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionInflater
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxkotlin.plusAssign
 import kotlinx.android.synthetic.main.fragment_post.*
 import tech.central.showcase.R
@@ -66,21 +64,30 @@ class PostFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initInstance(view, savedInstanceState)
+
+        val isFromDashBoard = arguments?.get("isFromDashBoard") as Boolean?
+
         //Register ViewModel
         mPostViewModel.postViewStateLiveData
                 .observe(viewLifecycleOwner) {
                     mPostController.setData(it)
                 }
 
-//        mPostViewModel.isLoadingLiveData
-//                .observe(viewLifecycleOwner) {
-//                    when {
-//                        it -> showProgressDialog()
-//                        else -> hideProgressDialog()
-//                    }
-//                }
-
-        mPostViewModel.loadInit()
+        if (isFromDashBoard == true) {
+            mPostViewModel.isLoadingLiveData
+                    .observe(viewLifecycleOwner) {
+                        when {
+                            it -> showProgressDialog()
+                            else -> {
+                                hideProgressDialog()
+                                Snackbar.make(view, "Post Loaded", Snackbar.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+            mPostViewModel.loadInit()
+            arguments?.clear()
+            Log.d(TAG, "onViewCreated: $arguments")
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -108,10 +115,6 @@ class PostFragment : BaseFragment() {
             )
             findNavController().navigate(destination, extra)
         }
-
-
-
-
         exitTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.fade)
     }
 
@@ -125,6 +128,9 @@ class PostFragment : BaseFragment() {
             R.id.menu_sort -> {
                 mPostViewModel.sortedListMenu()
                 mLayoutManager.scrollToPosition(0)
+                if (requireArguments().equals(true)) {
+                    Log.d(TAG, "onViewCreated: CLEAR")
+                }
             }
         }
         return super.onOptionsItemSelected(item)

@@ -52,6 +52,10 @@
         android:name="tech.central.showcase.post.PostFragment"
         android:label="@string/post"
         tools:layout="@layout/fragment_post">
+        <argument
+            android:name="isFromDashBoard"
+            android:defaultValue="false"
+            app:argType="boolean" />
         <action
             android:id="@+id/action_postFragment_to_postDetailFragment"
             app:destination="@id/postDetailFragment" />
