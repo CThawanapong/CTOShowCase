@@ -58,5 +58,11 @@ class DashboardFragment : BaseFragment() {
                     this@DashboardFragment.view?.findNavController()
                             ?.navigate(R.id.action_dashboardFragment_to_photoFragment)
                 }
+
+        val destination = DashboardFragmentDirections.actionDashboardFragmentToPostFragment(true)
+        subscriptions += buttonPost.clicks().subscribeBy {
+            this@DashboardFragment.view?.findNavController()
+                    ?.navigate(destination)
+        }
     }
 }

@@ -9,6 +9,11 @@ import tech.central.showcase.photo.PhotoModule
 import tech.central.showcase.photo_detail.PhotoDetailFragment
 import tech.central.showcase.photo_detail.PhotoDetailModule
 import tech.central.showcase.photo_detail.PhotoDetailViewModelModule
+import tech.central.showcase.post.PostFragment
+import tech.central.showcase.post.PostModule
+import tech.central.showcase.post_detail.PostDetailFragment
+import tech.central.showcase.post_detail.PostDetailModule
+import tech.central.showcase.post_detail.PostDetailViewModelModule
 
 @Module
 abstract class MainFragmentProvider {
@@ -23,4 +28,12 @@ abstract class MainFragmentProvider {
     @PerFragment
     @ContributesAndroidInjector(modules = [PhotoDetailModule::class, PhotoDetailViewModelModule::class])
     abstract fun bindPhotoDetailFragment(): PhotoDetailFragment
+
+    @PerFragment
+    @ContributesAndroidInjector(modules = [PostModule::class])
+    abstract fun bindPostFragment(): PostFragment
+
+    @PerFragment
+    @ContributesAndroidInjector(modules = [PostDetailModule::class, PostDetailViewModelModule::class])
+    abstract fun bindPostDetailFragment(): PostDetailFragment
 }

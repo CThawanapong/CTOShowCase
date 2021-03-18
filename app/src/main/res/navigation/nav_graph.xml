@@ -17,6 +17,13 @@
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_postFragment"
+            app:destination="@id/postFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
     </fragment>
     <fragment
         android:id="@+id/photoFragment"
@@ -39,5 +46,28 @@
         <argument
             android:name="photo"
             app:argType="tech.central.showcase.base.model.Photo" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="tech.central.showcase.post.PostFragment"
+        android:label="@string/post"
+        tools:layout="@layout/fragment_post">
+        <argument
+            android:name="isFromDashBoard"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_postFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="tech.central.showcase.post_detail.PostDetailFragment"
+        android:label="@string/post_detail"
+        tools:layout="@layout/fragment_post_detail">
+        <argument
+            android:name="post"
+            app:argType="tech.central.showcase.base.model.Post" />
     </fragment>
 </navigation>

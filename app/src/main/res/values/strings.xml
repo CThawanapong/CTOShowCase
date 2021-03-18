@@ -4,4 +4,13 @@
     <string name="dashboard">Dashboard</string>
     <string name="photo">Photo</string>
     <string name="photo_detail">Photo Detail</string>
+    <string name="post">Post</string>
+    <string name="post_detail">Post Detail</string>
+    <string name="sort">Sort</string>
+    <string name="title">title</string>
+    <string name="name">name</string>
+    <string name="email">email</string>
+    <string name="layoutContent">layoutcontent</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
